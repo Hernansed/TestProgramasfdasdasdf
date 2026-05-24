@@ -1,0 +1,182 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using curs.Data;
+using curs.Services;
+using Avalonia.Threading;
+using System.Threading.Tasks;
+
+namespace curs
+{
+    public partial class TestProgram : Window
+    {
+        public TestProgram()
+        {
+            InitializeComponent();
+
+            // ensure database
+            Database.Initialize();
+            Database.CreateDefaultAdmin();
+
+            // Login controls
+            var loginBtn = this.FindControl<Button>("LoginButton");
+            var gotoRegBtn = this.FindControl<Button>("GotoRegisterButton");
+            var forgotBtn = this.FindControl<Button>("ForgotButton");
+            if (loginBtn != null) loginBtn.Click += LoginButton_Click;
+            if (gotoRegBtn != null) gotoRegBtn.Click += (_, __) => _ = AnimateSwitchAsync("LoginPanel", "RegisterPanel");
+            if (forgotBtn != null) forgotBtn.Click += (_, __) => _ = AnimateSwitchAsync("LoginPanel", "ForgotPanel");
+
+            // Registration controls
+            var regSubmit = this.FindControl<Button>("RegSubmitButton");
+            var regCancel = this.FindControl<Button>("RegCancelButton");
+            if (regSubmit != null) regSubmit.Click += RegSubmitButton_Click;
+            if (regCancel != null) regCancel.Click += async (_, __) => await AnimateSwitchAsync("RegisterPanel", "LoginPanel");
+            var forgotSend = this.FindControl<Button>("ForgotSendButton");
+            var forgotCancel = this.FindControl<Button>("ForgotCancelButton");
+            if (forgotSend != null) forgotSend.Click += ForgotSendButton_Click;
+            if (forgotCancel != null) forgotCancel.Click += async (_, __) => await AnimateSwitchAsync("ForgotPanel", "LoginPanel");
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private async Task AnimateSwitchAsync(string fromName, string toName)
+        {
+            var from = this.FindControl<StackPanel>(fromName);
+            var to = this.FindControl<StackPanel>(toName);
+            if (from == null || to == null || from == to) return;
+
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                to.IsVisible = true;
+                to.Opacity = 0;
+            });
+
+            const int steps = 12;
+            const int delay = 15;
+            for (int i = 0; i <= steps; i++)
+            {
+                var t = i / (double)steps;
+                await Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    from.Opacity = 1 - t;
+                    to.Opacity = t;
+                });
+                await Task.Delay(delay);
+            }
+
+            await Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                from.IsVisible = false;
+                from.Opacity = 1;
+                to.Opacity = 1;
+            });
+        }
+
+        private void LoginButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("LoginUsernameBox");
+            var passBox = this.FindControl<TextBox>("LoginPasswordBox");
+            var status = this.FindControl<TextBlock>("LoginStatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            var user = AuthService.Authenticate(username, password);
+            if (user != null)
+            {
+                Window? next = null;
+                if (user.Role == "admin")
+                    next = new AdminWindow(user);
+                else
+                    next = new MainWindow(user);
+
+                next.Show();
+                this.Close();
+            }
+            else
+            {
+                if (status != null)
+                    status.Text = "Неверное имя пользователя или пароль";
+            }
+        }
+
+        private void RegSubmitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("RegUsernameBox");
+            var emailBox = this.FindControl<TextBox>("RegEmailBox");
+            var nameBox = this.FindControl<TextBox>("RegNameBox");
+            var passBox = this.FindControl<TextBox>("RegPasswordBox");
+            var status = this.FindControl<TextBlock>("RegStatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var email = emailBox?.Text ?? string.Empty;
+            var name = nameBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
+            {
+                if (status != null) status.Text = "Заполните имя, почту и пароль";
+                return;
+            }
+
+            if (AuthService.EmailExists(email))
+            {
+                if (status != null) status.Text = "Эта почта уже зарегистрирована";
+                return;
+            }
+
+            if (AuthService.UsernameExists(username))
+            {
+                if (status != null) status.Text = "Имя пользователя уже занято";
+                return;
+            }
+
+            var ok = AuthService.Register(username, password, email, name);
+            if (ok)
+            {
+                if (status != null) status.Text = "Пользователь создан";
+                // return to login view
+                ShowLogin();
+            }
+            else
+            {
+                if (status != null) status.Text = "Не удалось создать пользователя";
+            }
+        }
+
+        private async void ForgotSendButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var emailBox = this.FindControl<TextBox>("ForgotEmailBox");
+            var status = this.FindControl<TextBlock>("ForgotStatusText");
+            var email = emailBox?.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                if (status != null) status.Text = "Введите почту";
+                return;
+            }
+
+            var newPass = AuthService.ResetPassword(email);
+            if (newPass == null)
+            {
+                if (status != null) status.Text = "Почта не найдена";
+                return;
+            }
+
+            var sent = EmailService.Send(email, "Новый пароль", $"Ваш новый пароль: {newPass}");
+            if (sent)
+            {
+                if (status != null) status.Text = "Новый пароль отправлен на почту";
+            }
+            else
+            {
+                if (status != null) status.Text = $"Не удалось отправить почту. Новый пароль: {newPass}";
+            }
+            // after showing result, return to login after short delay
+            await Task.Delay(1200);
+            await AnimateSwitchAsync("ForgotPanel", "LoginPanel");
+        }
+    }
+}

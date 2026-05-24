@@ -1,0 +1,44 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.TestProgram"
+        Title="TestProgram">
+    <StackPanel Margin="20" Spacing="12" Width="420">
+        <!-- Login Panel -->
+        <StackPanel x:Name="LoginPanel" Spacing="8">
+            <TextBlock Text="Вход в систему" FontSize="16" />
+            <TextBox x:Name="LoginUsernameBox" Watermark="Имя пользователя" />
+            <TextBox x:Name="LoginPasswordBox" Watermark="Пароль" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="LoginButton">Войти</Button>
+                <Button x:Name="GotoRegisterButton">Регистрация</Button>
+                <Button x:Name="ForgotButton">Забыли пароль</Button>
+            </StackPanel>
+            <TextBlock x:Name="LoginStatusText" Foreground="Red" />
+        </StackPanel>
+
+        <!-- Registration Panel (hidden initially) -->
+        <StackPanel x:Name="RegisterPanel" Spacing="8" IsVisible="False" Opacity="0">
+            <TextBlock Text="Регистрация" FontSize="16" />
+            <TextBox x:Name="RegUsernameBox" Watermark="Имя пользователя" />
+            <TextBox x:Name="RegEmailBox" Watermark="Email" />
+            <TextBox x:Name="RegNameBox" Watermark="Имя" />
+            <TextBox x:Name="RegPasswordBox" Watermark="Пароль" />
+            <TextBox x:Name="RegConfirmBox" Watermark="Подтвердите пароль" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="RegSubmitButton">Зарегистрироваться</Button>
+                <Button x:Name="RegCancelButton">Отмена</Button>
+            </StackPanel>
+            <TextBlock x:Name="RegStatusText" Foreground="Red" />
+        </StackPanel>
+        <!-- Forgot password Panel (hidden initially) -->
+        <StackPanel x:Name="ForgotPanel" Spacing="8" IsVisible="False" Opacity="0">
+            <TextBlock Text="Восстановление пароля" FontSize="16" />
+            <TextBox x:Name="ForgotEmailBox" Watermark="Email" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button x:Name="ForgotSendButton">Отправить новый пароль</Button>
+                <Button x:Name="ForgotCancelButton">Отмена</Button>
+            </StackPanel>
+            <TextBlock x:Name="ForgotStatusText" Foreground="Red" />
+        </StackPanel>
+    </StackPanel>
+</Window>

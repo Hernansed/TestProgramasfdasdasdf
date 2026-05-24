@@ -1,0 +1,58 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Microsoft.Data.Sqlite;
+using System.Collections.ObjectModel;
+using curs.Models;
+using curs.Services;
+
+namespace curs
+{
+    public partial class AdminWindow : Window
+    {
+        private ObservableCollection<string> _users = new();
+        public AdminWindow(Models.User user)
+        {
+            InitializeComponent();
+            LoadUsers();
+
+            var createBtn = this.FindControl<Button>("CreateUserButton");
+            var refreshBtn = this.FindControl<Button>("RefreshButton");
+            if (createBtn != null)
+                createBtn.Click += CreateUserButton_Click;
+            if (refreshBtn != null)
+                refreshBtn.Click += (_, __) => LoadUsers();
+
+            var list = this.FindControl<ListBox>("UsersListBox");
+            if (list != null)
+                list.ItemsSource = _users;
+        }
+
+        private void LoadUsers()
+        {
+            _users.Clear();
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Username || ' (' || Role || ')' FROM Users ORDER BY Id DESC";
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _users.Add(reader.GetString(0));
+            }
+        }
+
+        private void CreateUserButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("NewUserBox");
+            var passBox = this.FindControl<TextBox>("NewPassBox");
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                return;
+            AuthService.Register(username, password, "user");
+            LoadUsers();
+            if (userBox != null) userBox.Text = string.Empty;
+            if (passBox != null) passBox.Text = string.Empty;
+        }
+    }
+}

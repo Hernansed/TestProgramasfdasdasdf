@@ -1,0 +1,116 @@
+using System;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
+
+namespace curs.Services
+{
+    public static class EmailService
+    {
+        // last send error for diagnostics
+        public static string? LastError { get; private set; }
+        public static string? Host { get; set; }
+        public static int Port { get; set; } = 25;
+        public static string? Username { get; set; }
+        public static string? Password { get; set; }
+        public static string? From { get; set; }
+
+        public static bool IsConfigured => !string.IsNullOrWhiteSpace(Host) && !string.IsNullOrWhiteSpace(From);
+
+        public static void Configure(string host, int port, string username, string password, string from)
+        {
+            Host = host; Port = port; Username = username; Password = password; From = from;
+        }
+
+        public static bool Send(string to, string subject, string body)
+        {
+            if (!IsConfigured) return false;
+            try
+            {
+                using var msg = new MailMessage();
+                msg.From = new MailAddress(From!);
+                msg.To.Add(new MailAddress(to));
+                msg.Subject = subject;
+                msg.Body = body;
+
+                using var client = new SmtpClient(Host, Port)
+                {
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                };
+
+                // Always enable SSL/TLS for modern SMTP servers (e.g., Gmail)
+                client.EnableSsl = true;
+
+                if (!string.IsNullOrWhiteSpace(Username))
+                {
+                    client.Credentials = new NetworkCredential(Username, Password);
+                }
+
+                client.Send(msg);
+                LastError = null;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // record last error and log to file for diagnosis
+                LastError = ex.ToString();
+                try
+                {
+                    File.AppendAllText("email_error.log", DateTime.UtcNow.ToString("o") + "\n" + ex.ToString() + "\n\n");
+                }
+                catch { }
+                return false;
+            }
+        }
+
+        private const string ConfigFile = "emailsettings.json";
+
+        public static void SaveSettings()
+        {
+            try
+            {
+                var cfg = new EmailSettings { Host = Host, Port = Port, Username = Username, Password = Password, From = From };
+                var json = JsonSerializer.Serialize(cfg);
+                File.WriteAllText(ConfigFile, json);
+            }
+            catch
+            {
+                // ignore failures
+            }
+        }
+
+        public static void LoadSettings()
+        {
+            try
+            {
+                if (!File.Exists(ConfigFile)) return;
+                var json = File.ReadAllText(ConfigFile);
+                var cfg = JsonSerializer.Deserialize<EmailSettings>(json);
+                if (cfg != null)
+                {
+                    Host = cfg.Host;
+                    Port = cfg.Port;
+                    Username = cfg.Username;
+                    Password = cfg.Password;
+                    From = cfg.From;
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+        }
+
+        private class EmailSettings
+        {
+            public string? Host { get; set; }
+            public int Port { get; set; }
+            public string? Username { get; set; }
+            public string? Password { get; set; }
+            public string? From { get; set; }
+        }
+    }
+}

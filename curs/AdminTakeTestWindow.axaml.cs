@@ -1,0 +1,115 @@
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using Microsoft.Data.Sqlite;
+using System.Collections.ObjectModel;
+using System;
+
+namespace curs
+{
+    public partial class AdminTakeTestWindow : Window
+    {
+        private ObservableCollection<string> _users = new();
+        private ObservableCollection<string> _tests = new();
+
+        public AdminTakeTestWindow()
+        {
+            InitializeComponent();
+            var start = this.FindControl<Button>("StartButton");
+            var cancel = this.FindControl<Button>("CancelButton");
+            if (start != null) start.Click += StartButton_Click;
+            if (cancel != null) cancel.Click += (_, __) => this.Close();
+
+            var userCombo = this.FindControl<ComboBox>("UserCombo");
+            var testCombo = this.FindControl<ComboBox>("TestCombo");
+            if (userCombo != null) userCombo.ItemsSource = _users;
+            if (testCombo != null) testCombo.ItemsSource = _tests;
+
+            LoadUsers();
+            LoadTests();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void LoadUsers()
+        {
+            _users.Clear();
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Id || ':' || Username FROM Users ORDER BY Id DESC";
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _users.Add(reader.GetString(0));
+            }
+        }
+
+        private void LoadTests()
+        {
+            _tests.Clear();
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Id || ':' || Title FROM Tests ORDER BY Id DESC";
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _tests.Add(reader.GetString(0));
+            }
+        }
+
+        private void StartButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userCombo = this.FindControl<ComboBox>("UserCombo");
+            var testCombo = this.FindControl<ComboBox>("TestCombo");
+            var status = this.FindControl<TextBlock>("StatusText");
+            var userSel = userCombo?.SelectedItem as string;
+            var testSel = testCombo?.SelectedItem as string;
+            if (string.IsNullOrWhiteSpace(userSel) || string.IsNullOrWhiteSpace(testSel))
+            {
+                if (status != null) status.Text = "Выберите пользователя и тест";
+                return;
+            }
+
+            try
+            {
+                var userId = int.Parse(userSel.Split(':')[0]);
+                var testId = int.Parse(testSel.Split(':')[0]);
+                // load user
+                Models.User? user = null;
+                using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Id, Username, Role, Email, Name FROM Users WHERE Id=$id";
+                    cmd.Parameters.AddWithValue("$id", userId);
+                    using var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        user = new Models.User { Id = reader.GetInt32(0), Username = reader.GetString(1), Role = reader.GetString(2) };
+                        if (!reader.IsDBNull(3)) user.Email = reader.GetString(3);
+                        if (!reader.IsDBNull(4)) user.Name = reader.GetString(4);
+                    }
+                }
+
+                if (user == null)
+                {
+                    if (status != null) status.Text = "Пользователь не найден";
+                    return;
+                }
+
+                var win = new TestTakingWindow(testId, user);
+                win.ShowDialog(this);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                if (status != null) status.Text = "Ошибка запуска теста";
+            }
+        }
+    }
+}

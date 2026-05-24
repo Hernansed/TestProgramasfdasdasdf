@@ -1,0 +1,55 @@
+﻿using Microsoft.Data.Sqlite;
+using System;
+using curs.Models;
+
+namespace curs.Services
+{
+    public static class AuthService
+    {
+        public static string HashPassword(string pwd)
+        {
+            using var sha = System.Security.Cryptography.SHA256.Create();
+            var bytes = System.Text.Encoding.UTF8.GetBytes(pwd);
+            var hash = sha.ComputeHash(bytes);
+            return Convert.ToHexString(hash);
+        }
+
+        public static User? Authenticate(string username, string password)
+        {
+            var hash = HashPassword(password);
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Id, Username, Role FROM Users WHERE Username=$u AND PasswordHash=$p";
+            cmd.Parameters.AddWithValue("$u", username);
+            cmd.Parameters.AddWithValue("$p", hash);
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                return new User { Id = reader.GetInt32(0), Username = reader.GetString(1), Role = reader.GetString(2) };
+            }
+            return null;
+        }
+
+        public static bool Register(string username, string password, string role = "user")
+        {
+            var hash = HashPassword(password);
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO Users (Username,PasswordHash,Role) VALUES ($u,$p,$r);";
+            cmd.Parameters.AddWithValue("$u", username);
+            cmd.Parameters.AddWithValue("$p", hash);
+            cmd.Parameters.AddWithValue("$r", role);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+}

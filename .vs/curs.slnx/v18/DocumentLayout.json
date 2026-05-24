@@ -1,0 +1,466 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\source\\repos\\curs\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\adminwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\adminwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\adminwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\adminwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\mainwindow.axaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\mainwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\curs.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\curs.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\models\\testitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\models\\testitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\loginwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\loginwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\loginwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\loginwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\app.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\app.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\models\\question.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\forgotwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\forgotwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\forgotwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\forgotwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\registerwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\registerwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\registerwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\registerwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\testprogram.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\testprogram.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\testprogram.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\testprogram.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\smtpsettingswindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\smtpsettingswindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\smtpsettingswindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\smtpsettingswindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\testtakingwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\testtakingwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\testtakingwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\testtakingwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\admintaketestwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\admintaketestwindow.axaml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|c:\\users\\user\\source\\repos\\curs\\curs\\admintaketestwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F7B2CE1-D747-4769-ADF5-579FD1F57C1A}|curs\\curs.csproj|solutionrelative:curs\\admintaketestwindow.axaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AdminTakeTestWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminTakeTestWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\AdminTakeTestWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminTakeTestWindow.axaml.cs",
+              "RelativeToolTip": "curs\\AdminTakeTestWindow.axaml.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAABBwHMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:53:01.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AdminTakeTestWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminTakeTestWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\AdminTakeTestWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminTakeTestWindow.axaml",
+              "RelativeToolTip": "curs\\AdminTakeTestWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:52:49.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "TestTakingWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestTakingWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\TestTakingWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestTakingWindow.axaml.cs",
+              "RelativeToolTip": "curs\\TestTakingWindow.axaml.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAABBwGwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:52:26.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "TestTakingWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestTakingWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\TestTakingWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestTakingWindow.axaml",
+              "RelativeToolTip": "curs\\TestTakingWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:52:15.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "RegisterWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\RegisterWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\RegisterWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\RegisterWindow.axaml.cs",
+              "RelativeToolTip": "curs\\RegisterWindow.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:40:07.175Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RegisterWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\RegisterWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\RegisterWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\RegisterWindow.axaml",
+              "RelativeToolTip": "curs\\RegisterWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:39:59.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "curs\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Services\\EmailService.cs",
+              "RelativeToolTip": "curs\\Services\\EmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:32:13.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "TestProgram.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestProgram.axaml",
+              "RelativeDocumentMoniker": "curs\\TestProgram.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestProgram.axaml",
+              "RelativeToolTip": "curs\\TestProgram.axaml",
+              "ViewState": "AgIAABcAAAAAAAAAAABBwCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:41:27.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "TestProgram.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestProgram.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\TestProgram.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\TestProgram.axaml.cs",
+              "RelativeToolTip": "curs\\TestProgram.axaml.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAIBJwMwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:41:38.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SmtpSettingsWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\SmtpSettingsWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\SmtpSettingsWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\SmtpSettingsWindow.axaml",
+              "RelativeToolTip": "curs\\SmtpSettingsWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:48:00.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SmtpSettingsWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\SmtpSettingsWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\SmtpSettingsWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\SmtpSettingsWindow.axaml.cs",
+              "RelativeToolTip": "curs\\SmtpSettingsWindow.axaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:48:07.838Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ForgotWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\ForgotWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\ForgotWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\ForgotWindow.axaml.cs",
+              "RelativeToolTip": "curs\\ForgotWindow.axaml.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAIBJwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:32:58.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ForgotWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\ForgotWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\ForgotWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\ForgotWindow.axaml",
+              "RelativeToolTip": "curs\\ForgotWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:32:53.483Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Question.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\Question.cs",
+              "RelativeDocumentMoniker": "curs\\Models\\Question.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\Question.cs",
+              "RelativeToolTip": "curs\\Models\\Question.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:24:51.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\AdminWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminWindow.axaml.cs",
+              "RelativeToolTip": "curs\\AdminWindow.axaml.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAAJoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:44.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\AdminWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\AdminWindow.axaml",
+              "RelativeToolTip": "curs\\AdminWindow.axaml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAUwCIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:20:39.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoginWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\LoginWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\LoginWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\LoginWindow.axaml.cs",
+              "RelativeToolTip": "curs\\LoginWindow.axaml.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAIBJwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:34.885Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LoginWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\LoginWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\LoginWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\LoginWindow.axaml",
+              "RelativeToolTip": "curs\\LoginWindow.axaml",
+              "ViewState": "AgIAAAcAAAAAAAAAAABBwBAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:20:28.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "TestItem.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\TestItem.cs",
+              "RelativeDocumentMoniker": "curs\\Models\\TestItem.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\TestItem.cs",
+              "RelativeToolTip": "curs\\Models\\TestItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:24.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\User.cs",
+              "RelativeDocumentMoniker": "curs\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Models\\User.cs",
+              "RelativeToolTip": "curs\\Models\\User.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAIBHwAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:22.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "curs\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Services\\AuthService.cs",
+              "RelativeToolTip": "curs\\Services\\AuthService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAEBUwIIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:18.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Database.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\Data\\Database.cs",
+              "RelativeDocumentMoniker": "curs\\Data\\Database.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\Data\\Database.cs",
+              "RelativeToolTip": "curs\\Data\\Database.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAABBwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:20:13.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "curs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\curs.csproj",
+              "RelativeDocumentMoniker": "curs\\curs.csproj",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\curs.csproj",
+              "RelativeToolTip": "curs\\curs.csproj",
+              "ViewState": "AgIAAA4AAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-05-23T17:20:07.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.axaml",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\MainWindow.axaml",
+              "RelativeDocumentMoniker": "curs\\MainWindow.axaml",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\MainWindow.axaml",
+              "RelativeToolTip": "curs\\MainWindow.axaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-05-23T17:14:55.478Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "App.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\App.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\App.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\App.axaml.cs",
+              "RelativeToolTip": "curs\\App.axaml.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:21:13.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.axaml.cs",
+              "DocumentMoniker": "C:\\Users\\user\\source\\repos\\curs\\curs\\MainWindow.axaml.cs",
+              "RelativeDocumentMoniker": "curs\\MainWindow.axaml.cs",
+              "ToolTip": "C:\\Users\\user\\source\\repos\\curs\\curs\\MainWindow.axaml.cs",
+              "RelativeToolTip": "curs\\MainWindow.axaml.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAIBJwGcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-23T17:14:52.833Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

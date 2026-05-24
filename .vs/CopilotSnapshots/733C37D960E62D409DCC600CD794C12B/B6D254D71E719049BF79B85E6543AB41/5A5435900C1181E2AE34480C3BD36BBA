@@ -1,0 +1,141 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Microsoft.Data.Sqlite;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Text.Json;
+using curs.Models;
+using curs.Services;
+using System;
+
+namespace curs
+{
+    public partial class AdminWindow : Window
+    {
+        private ObservableCollection<string> _users = new();
+        private List<Question> _questionItems = new();
+        private ObservableCollection<string> _questionsDisplay = new();
+
+        public AdminWindow(Models.User user)
+        {
+            InitializeComponent();
+            LoadUsers();
+
+            var createBtn = this.FindControl<Button>("CreateUserButton");
+            var refreshBtn = this.FindControl<Button>("RefreshButton");
+            if (createBtn != null)
+                createBtn.Click += CreateUserButton_Click;
+            if (refreshBtn != null)
+                refreshBtn.Click += (_, __) => LoadUsers();
+
+            var list = this.FindControl<ListBox>("UsersListBox");
+            if (list != null)
+                list.ItemsSource = _users;
+
+            var smtpBtn = this.FindControl<Button>("SmtpSettingsButton");
+            if (smtpBtn != null)
+                smtpBtn.Click += (_, __) =>
+                {
+                    // lazy resolve SmtpSettingsWindow to avoid missing using in some contexts
+                    var t = typeof(AdminWindow).Assembly.GetType("curs.SmtpSettingsWindow");
+                    if (t != null)
+                    {
+                        if (Activator.CreateInstance(t) is Window win)
+                        {
+                            win.ShowDialog(this);
+                        }
+                    }
+                };
+
+            // Questions/test UI
+            var addQBtn = this.FindControl<Button>("AddQuestionButton");
+            var saveTestBtn = this.FindControl<Button>("SaveTestButton");
+            var clearQBtn = this.FindControl<Button>("ClearQuestionsButton");
+            var qList = this.FindControl<ListBox>("QuestionsListBox");
+
+            if (addQBtn != null)
+                addQBtn.Click += AddQuestionButton_Click;
+            if (saveTestBtn != null)
+                saveTestBtn.Click += SaveTestButton_Click;
+            if (clearQBtn != null)
+                clearQBtn.Click += ClearQuestionsButton_Click;
+            if (qList != null)
+                qList.ItemsSource = _questionsDisplay;
+        }
+
+        private void LoadUsers()
+        {
+            _users.Clear();
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Username || ' (' || Role || ')' FROM Users ORDER BY Id DESC";
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                _users.Add(reader.GetString(0));
+            }
+        }
+
+        private void CreateUserButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("NewUserBox");
+            var passBox = this.FindControl<TextBox>("NewPassBox");
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                return;
+            AuthService.Register(username, password, "user");
+            LoadUsers();
+            if (userBox != null) userBox.Text = string.Empty;
+            if (passBox != null) passBox.Text = string.Empty;
+        }
+
+        private void AddQuestionButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var qBox = this.FindControl<TextBox>("QuestionBox");
+            var aBox = this.FindControl<TextBox>("AnswerBox");
+            var qText = qBox?.Text ?? string.Empty;
+            var aText = aBox?.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(qText))
+                return;
+
+            var answers = aText.Split(';', System.StringSplitOptions.RemoveEmptyEntries | System.StringSplitOptions.TrimEntries);
+            var q = new Question { Text = qText, Answers = answers };
+            _questionItems.Add(q);
+            _questionsDisplay.Add(qText + " -> " + string.Join(", ", answers));
+
+            if (qBox != null) qBox.Text = string.Empty;
+            if (aBox != null) aBox.Text = string.Empty;
+        }
+
+        private void SaveTestButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var titleBox = this.FindControl<TextBox>("TestTitleBox");
+            var title = titleBox?.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(title) || _questionItems.Count == 0)
+                return;
+
+            var content = JsonSerializer.Serialize(_questionItems);
+
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO Tests (Title, Content) VALUES ($t, $c);";
+            cmd.Parameters.AddWithValue("$t", title);
+            cmd.Parameters.AddWithValue("$c", content);
+            cmd.ExecuteNonQuery();
+
+            // clear
+            _questionItems.Clear();
+            _questionsDisplay.Clear();
+            if (titleBox != null) titleBox.Text = string.Empty;
+        }
+
+        private void ClearQuestionsButton_Click(object? sender, RoutedEventArgs e)
+        {
+            _questionItems.Clear();
+            _questionsDisplay.Clear();
+        }
+    }
+}

@@ -1,0 +1,133 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using curs.Data;
+using curs.Services;
+
+namespace curs
+{
+    public partial class TestProgram : Window
+    {
+        public TestProgram()
+        {
+            InitializeComponent();
+
+            // ensure database
+            Database.Initialize();
+            Database.CreateDefaultAdmin();
+
+            // Login controls
+            var loginBtn = this.FindControl<Button>("LoginButton");
+            var gotoRegBtn = this.FindControl<Button>("GotoRegisterButton");
+            var forgotBtn = this.FindControl<Button>("ForgotButton");
+            if (loginBtn != null) loginBtn.Click += LoginButton_Click;
+            if (gotoRegBtn != null) gotoRegBtn.Click += (_, __) => ShowRegister();
+            if (forgotBtn != null) forgotBtn.Click += ForgotButton_Click;
+
+            // Registration controls
+            var regSubmit = this.FindControl<Button>("RegSubmitButton");
+            var regCancel = this.FindControl<Button>("RegCancelButton");
+            if (regSubmit != null) regSubmit.Click += RegSubmitButton_Click;
+            if (regCancel != null) regCancel.Click += (_, __) => ShowLogin();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void ShowRegister()
+        {
+            var loginPanel = this.FindControl<StackPanel>("LoginPanel");
+            var regPanel = this.FindControl<StackPanel>("RegisterPanel");
+            if (loginPanel != null) loginPanel.IsVisible = false;
+            if (regPanel != null) regPanel.IsVisible = true;
+        }
+
+        private void ShowLogin()
+        {
+            var loginPanel = this.FindControl<StackPanel>("LoginPanel");
+            var regPanel = this.FindControl<StackPanel>("RegisterPanel");
+            if (loginPanel != null) loginPanel.IsVisible = true;
+            if (regPanel != null) regPanel.IsVisible = false;
+        }
+
+        private void LoginButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("LoginUsernameBox");
+            var passBox = this.FindControl<TextBox>("LoginPasswordBox");
+            var status = this.FindControl<TextBlock>("LoginStatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            var user = AuthService.Authenticate(username, password);
+            if (user != null)
+            {
+                Window? next = null;
+                if (user.Role == "admin")
+                    next = new AdminWindow(user);
+                else
+                    next = new MainWindow(user);
+
+                next.Show();
+                this.Close();
+            }
+            else
+            {
+                if (status != null)
+                    status.Text = "Неверное имя пользователя или пароль";
+            }
+        }
+
+        private void RegSubmitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("RegUsernameBox");
+            var emailBox = this.FindControl<TextBox>("RegEmailBox");
+            var nameBox = this.FindControl<TextBox>("RegNameBox");
+            var passBox = this.FindControl<TextBox>("RegPasswordBox");
+            var status = this.FindControl<TextBlock>("RegStatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var email = emailBox?.Text ?? string.Empty;
+            var name = nameBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
+            {
+                if (status != null) status.Text = "Заполните имя, почту и пароль";
+                return;
+            }
+
+            if (AuthService.EmailExists(email))
+            {
+                if (status != null) status.Text = "Эта почта уже зарегистрирована";
+                return;
+            }
+
+            if (AuthService.UsernameExists(username))
+            {
+                if (status != null) status.Text = "Имя пользователя уже занято";
+                return;
+            }
+
+            var ok = AuthService.Register(username, password, email, name);
+            if (ok)
+            {
+                if (status != null) status.Text = "Пользователь создан";
+                // return to login view
+                ShowLogin();
+            }
+            else
+            {
+                if (status != null) status.Text = "Не удалось создать пользователя";
+            }
+        }
+
+        private void ForgotButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var win = new ForgotWindow();
+            win.ShowDialog(this);
+        }
+    }
+}

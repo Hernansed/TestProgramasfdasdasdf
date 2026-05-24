@@ -1,0 +1,83 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using curs.Data;
+using curs.Services;
+
+namespace curs
+{
+    public partial class LoginWindow : Window
+    {
+        public LoginWindow()
+        {
+            InitializeComponent();
+
+            Database.Initialize();
+            Database.CreateDefaultAdmin();
+
+            var loginBtn = this.FindControl<Button>("LoginButton");
+            var regBtn = this.FindControl<Button>("RegisterButton");
+
+            if (loginBtn != null)
+                loginBtn.Click += LoginButton_Click;
+            if (regBtn != null)
+                regBtn.Click += RegisterButton_Click;
+        }
+
+        private void LoginButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("UsernameBox");
+            var passBox = this.FindControl<TextBox>("PasswordBox");
+            var status = this.FindControl<TextBlock>("StatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            var user = AuthService.Authenticate(username, password);
+            if (user != null)
+            {
+                Window? next = null;
+                if (user.Role == "admin")
+                    next = new AdminWindow(user);
+                else
+                    next = new MainWindow(user);
+
+                next.Show();
+                this.Close();
+            }
+            else
+            {
+                if (status != null)
+                    status.Text = "Неверное имя пользователя или пароль";
+            }
+        }
+
+        private void RegisterButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var userBox = this.FindControl<TextBox>("UsernameBox");
+            var passBox = this.FindControl<TextBox>("PasswordBox");
+            var status = this.FindControl<TextBlock>("StatusText");
+
+            var username = userBox?.Text ?? string.Empty;
+            var password = passBox?.Text ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                if (status != null)
+                    status.Text = "Введите имя и пароль";
+                return;
+            }
+
+            var ok = AuthService.Register(username, password);
+            if (ok)
+            {
+                if (status != null)
+                    status.Text = "Пользователь создан. Войдите.";
+            }
+            else
+            {
+                if (status != null)
+                    status.Text = "Не удалось создать пользователя (возможно, уже существует)";
+            }
+        }
+    }
+}
