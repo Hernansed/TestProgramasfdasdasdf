@@ -17,8 +17,7 @@ namespace curs
             // ensure database
             Database.Initialize();
             Database.CreateDefaultAdmin();
-            // load email settings if present
-            Services.EmailService.LoadSettings();
+            // email/SMTP removed from project
 
             // Login controls
             var loginBtn = this.FindControl<Button>("LoginButton");
@@ -181,21 +180,8 @@ namespace curs
                 return;
             }
 
-            // configure EmailService to use provided SMTP credentials (Gmail)
-            EmailService.Configure("smtp.gmail.com", 587, "hernansedhenderson@gmail.com", "fe24fe24", "hernansedhenderson@gmail.com");
-            EmailService.SaveSettings();
-
-            var subject = "Восстановление пароля - TestProgram";
-            var body = $"Привет! Это TestProgram. Ваш пароль был изменён. Новый пароль: {newPass}";
-            var sent = EmailService.Send(email, subject, body);
-            if (sent)
-            {
-                if (status != null) status.Text = $"Письмо отправлено на {email}";
-            }
-            else
-            {
-                if (status != null) status.Text = $"Не удалось отправить почту. Новый пароль: {newPass}";
-            }
+            // SMTP removed: show new password to user
+            if (status != null) status.Text = $"Новый пароль: {newPass}";
             // after showing result, return to login after short delay
             await Task.Delay(1200);
             await AnimateSwitchAsync("ForgotPanel", "LoginPanel");

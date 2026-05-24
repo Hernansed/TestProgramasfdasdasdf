@@ -11,7 +11,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Spacing="8">
             <Button x:Name="RefreshButton">Обновить список пользователей</Button>
-            <Button x:Name="SmtpSettingsButton">SMTP настройки</Button>
+            <Button x:Name="LogoutButton">Выйти</Button>
         </StackPanel>
         <ListBox x:Name="UsersListBox" Height="200" />
         <Separator />

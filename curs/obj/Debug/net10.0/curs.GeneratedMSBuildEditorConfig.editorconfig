@@ -44,9 +44,6 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/user/source/repos/curs/curs/RegisterWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/SmtpSettingsWindow.axaml]
-build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
-
 [C:/Users/user/source/repos/curs/curs/TestProgram.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

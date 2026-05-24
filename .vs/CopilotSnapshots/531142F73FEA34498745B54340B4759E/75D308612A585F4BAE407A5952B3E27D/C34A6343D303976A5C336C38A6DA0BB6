@@ -1,0 +1,45 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.TestTakingWindow"
+        Title="Прохождение теста">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel x:Name="CurrentQuestionPanel" Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="QuestionTextBlock" TextWrapping="Wrap" FontSize="22" TextAlignment="Center" MaxWidth="800" />
+                <TextBox x:Name="AnswerTextBox" Width="600" Watermark="Ваш ответ" HorizontalAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button x:Name="NextButton">Далее</Button>
+            <Button x:Name="SubmitButton">Завершить</Button>
+            <Button x:Name="CancelButton">Отмена</Button>
+        </StackPanel>
+
+        <!-- Results are hidden during the test and will be shown after submitting -->
+        <ListBox x:Name="ResultsView" Height="200" DockPanel.Dock="Bottom" IsVisible="False">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Status}" Value="Правильно">
+                            <Setter Property="Background" Value="LightGreen" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Status}" Value="Неправильно">
+                            <Setter Property="Background" Value="LightCoral" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="{Binding Number}" Width="30" />
+                        <TextBlock Text="{Binding Question}" Width="600" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Answer}" Width="200" />
+                        <TextBlock Text="{Binding Status}" Width="120" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>

@@ -32,19 +32,7 @@ namespace curs
             if (list != null)
                 list.ItemsSource = _users;
 
-            var smtpBtn = this.FindControl<Button>("SmtpSettingsButton");
-            if (smtpBtn != null)
-                smtpBtn.Click += (_, __) =>
-                {
-                    var t = typeof(AdminWindow).Assembly.GetType("curs.SmtpSettingsWindow");
-                    if (t != null)
-                    {
-                        if (Activator.CreateInstance(t) is Window win)
-                        {
-                            win.ShowDialog(this);
-                        }
-                    }
-                };
+            // SMTP settings removed from application
 
             var takeBtn = this.FindControl<Button>("TakeTestAsUserButton");
             if (takeBtn != null)
@@ -60,6 +48,10 @@ namespace curs
                     }
                 };
 
+            var logoutBtn = this.FindControl<Button>("LogoutButton");
+            if (logoutBtn != null)
+                logoutBtn.Click += LogoutButton_Click;
+
             // Questions/test UI
             var addQBtn = this.FindControl<Button>("AddQuestionButton");
             var saveTestBtn = this.FindControl<Button>("SaveTestButton");
@@ -74,6 +66,13 @@ namespace curs
                 clearQBtn.Click += ClearQuestionsButton_Click;
             if (qList != null)
                 qList.ItemsSource = _questionsDisplay;
+        }
+
+        private void LogoutButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var login = new LoginWindow();
+            login.Show();
+            this.Close();
         }
 
         private void LoadUsers()

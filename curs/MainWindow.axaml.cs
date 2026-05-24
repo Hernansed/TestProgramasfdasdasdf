@@ -9,7 +9,7 @@ namespace curs
 {
     public partial class MainWindow : Window
     {
-        private ObservableCollection<string> _items = new();
+        private ObservableCollection<TestItem> _items = new();
         private TextBox? _inputTextBox;
         private ListBox? _itemsListBox;
         private TextBlock? _userLabel;
@@ -25,9 +25,9 @@ namespace curs
         public MainWindow(User user)
         {
             InitializeComponent();
-            InitializeControls();
             Database.Initialize();
             SetCurrentUser(user);
+            InitializeControls();
             LoadTests();
         }
 
@@ -36,17 +36,41 @@ namespace curs
             _inputTextBox = this.FindControl<TextBox>("InputTextBox");
             _itemsListBox = this.FindControl<ListBox>("ItemsListBox");
             _userLabel = this.FindControl<TextBlock>("UserLabel");
+            var logoutBtn = this.FindControl<Button>("LogoutButton");
+
+            if (logoutBtn != null)
+                logoutBtn.Click += LogoutButton_Click;
 
             if (_itemsListBox != null)
                 _itemsListBox.ItemsSource = _items;
 
-            var addButton = this.FindControl<Button>("AddButton");
-            if (addButton != null)
-                addButton.Click += AddButton_Click;
+            var takeBtn = this.FindControl<Button>("TakeTestButton");
+            if (takeBtn != null)
+                takeBtn.Click += TakeTestButton_Click;
 
+            var addButton = this.FindControl<Button>("AddButton");
             var clearButton = this.FindControl<Button>("ClearButton");
-            if (clearButton != null)
-                clearButton.Click += ClearButton_Click;
+
+            // Only allow adding/clearing tests for admin users. Hide for regular users.
+            if (_currentUser != null && _currentUser.Role != "admin")
+            {
+                if (addButton != null) addButton.IsVisible = false;
+                if (clearButton != null) clearButton.IsVisible = false;
+            }
+            else
+            {
+                if (addButton != null)
+                    addButton.Click += AddButton_Click;
+                if (clearButton != null)
+                    clearButton.Click += ClearButton_Click;
+            }
+        }
+
+        private void LogoutButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var login = new LoginWindow();
+            login.Show();
+            this.Close();
         }
 
         public void SetCurrentUser(User user)
@@ -62,12 +86,23 @@ namespace curs
             using var conn = new SqliteConnection($"Data Source={Database.DbPath}");
             conn.Open();
             using var cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT Title FROM Tests ORDER BY Id DESC";
+            cmd.CommandText = "SELECT Id, Title, Content FROM Tests ORDER BY Id DESC";
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                _items.Add(reader.GetString(0));
+                var item = new TestItem { Id = reader.GetInt32(0), Title = reader.GetString(1), Content = reader.GetString(2) };
+                _items.Add(item);
             }
+        }
+
+        private async void TakeTestButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (_itemsListBox == null) return;
+            var sel = _itemsListBox.SelectedItem as TestItem;
+            if (sel == null) return;
+
+            var win = new TestTakingWindow(sel.Id, _currentUser);
+            await win.ShowDialog(this);
         }
 
         private void AddButton_Click(object? sender, RoutedEventArgs e)

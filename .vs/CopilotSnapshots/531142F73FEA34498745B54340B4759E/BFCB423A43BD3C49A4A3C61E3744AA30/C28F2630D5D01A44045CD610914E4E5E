@@ -1,0 +1,105 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
+using System.Text.Json;
+using curs.Models;
+using System;
+
+namespace curs
+{
+    public partial class TestTakingWindow : Window
+    {
+        private List<Question> _questions = new();
+        private List<string> _responses = new();
+        private int _testId;
+        private Models.User? _user;
+
+        public TestTakingWindow(int testId, Models.User? user = null)
+        {
+            _testId = testId;
+            _user = user;
+            InitializeComponent();
+            var submit = this.FindControl<Button>("SubmitButton");
+            var cancel = this.FindControl<Button>("CancelButton");
+            if (submit != null) submit.Click += SubmitButton_Click;
+            if (cancel != null) cancel.Click += (_, __) => this.Close();
+
+            LoadTest();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void LoadTest()
+        {
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Title, Content FROM Tests WHERE Id=$id";
+            cmd.Parameters.AddWithValue("$id", _testId);
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                var title = reader.GetString(0);
+                this.Title = title;
+                var content = reader.GetString(1);
+                try
+                {
+                    _questions = JsonSerializer.Deserialize<List<Question>>(content) ?? new List<Question>();
+                }
+                catch
+                {
+                    _questions = new List<Question>();
+                }
+            }
+
+            var host = this.FindControl<StackPanel>("QuestionsHost");
+            host.Children.Clear();
+            _responses.Clear();
+            for (int i = 0; i < _questions.Count; i++)
+            {
+                var q = _questions[i];
+                var tb = new TextBlock { Text = ($"{i+1}. {q.Text}"), TextWrapping = Avalonia.Media.TextWrapping.Wrap };
+                host.Children.Add(tb);
+
+                // Instead of radio buttons, provide a text box for free-form answer
+                var answerBox = new TextBox { Width = 600, Watermark = "Ваш ответ" };
+                int idx = i;
+                answerBox.GetObservable(TextBox.TextProperty).Subscribe(text => { _responses[idx] = text ?? string.Empty; });
+                _responses.Add(string.Empty);
+                host.Children.Add(answerBox);
+            }
+        }
+
+        private void SubmitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            // save attempt: collect free-form responses
+            var answers = new List<object>();
+            for (int i = 0; i < _questions.Count; i++)
+            {
+                var resp = (i < _responses.Count) ? _responses[i] : string.Empty;
+                answers.Add(new { Question = _questions[i].Text, Response = resp });
+            }
+            var json = JsonSerializer.Serialize(answers);
+
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO TestAttempts (TestId, UserId, Answers, CreatedAt) VALUES ($t, $u, $a, $c);";
+            cmd.Parameters.AddWithValue("$t", _testId);
+            if (_user != null)
+                cmd.Parameters.AddWithValue("$u", _user.Id);
+            else
+                cmd.Parameters.AddWithValue("$u", DBNull.Value);
+            cmd.Parameters.AddWithValue("$a", json);
+            cmd.Parameters.AddWithValue("$c", DateTime.UtcNow.ToString("o"));
+            cmd.ExecuteNonQuery();
+
+            this.Close();
+        }
+    }
+}

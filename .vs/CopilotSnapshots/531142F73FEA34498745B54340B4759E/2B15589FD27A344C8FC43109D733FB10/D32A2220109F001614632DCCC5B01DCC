@@ -1,0 +1,22 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.TestTakingWindow"
+        Title="Прохождение теста">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" Spacing="8">
+            <StackPanel x:Name="CurrentQuestionPanel" Spacing="6">
+                <TextBlock x:Name="QuestionTextBlock" TextWrapping="Wrap" />
+                <TextBox x:Name="AnswerTextBox" Width="600" Watermark="Ваш ответ" />
+            </StackPanel>
+
+            <TextBlock Text="Результаты:" FontWeight="Bold" />
+            <ListBox x:Name="ResultsListBox" Height="200" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button x:Name="NextButton">Далее</Button>
+            <Button x:Name="SubmitButton">Завершить</Button>
+            <Button x:Name="CancelButton">Отмена</Button>
+        </StackPanel>
+    </DockPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.TestTakingWindow"
+        Title="Прохождение теста">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top" Spacing="8" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel x:Name="CurrentQuestionPanel" Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="QuestionTextBlock" TextWrapping="Wrap" FontSize="22" TextAlignment="Center" MaxWidth="800" />
+                <TextBox x:Name="AnswerTextBox" Width="600" Watermark="Ваш ответ" HorizontalAlignment="Center" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button x:Name="NextButton">Далее</Button>
+            <Button x:Name="SubmitButton">Завершить</Button>
+            <Button x:Name="CancelButton">Отмена</Button>
+        </StackPanel>
+
+        <!-- Results are hidden during the test and will be shown after submitting -->
+        <ScrollViewer x:Name="ResultsScroll" Height="200" DockPanel.Dock="Bottom" IsVisible="False" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="ResultsHost" Spacing="4" />
+        </ScrollViewer>
+    </DockPanel>
+</Window>

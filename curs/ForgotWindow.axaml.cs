@@ -37,16 +37,8 @@ namespace curs
                 return;
             }
 
-            // Try send email
-            var sent = EmailService.Send(email, "Новый пароль", $"Ваш новый пароль: {newPass}");
-            if (sent)
-            {
-                if (status != null) status.Text = "Новый пароль отправлен на почту";
-            }
-            else
-            {
-                if (status != null) status.Text = $"Не удалось отправить почту. Новый пароль: {newPass}";
-            }
+            // SMTP/email removed — show new password to the user
+            if (status != null) status.Text = $"Новый пароль: {newPass}";
         }
     }
 }

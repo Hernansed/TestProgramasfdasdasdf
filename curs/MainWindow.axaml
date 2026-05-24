@@ -7,12 +7,16 @@
         Title="curs">
     <StackPanel Margin="10" Spacing="8">
         <TextBlock Text="Пример графического интерфейса" FontSize="18" />
-        <TextBlock x:Name="UserLabel" Text="" FontSize="12" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBlock x:Name="UserLabel" Text="" FontSize="12" />
+            <Button x:Name="LogoutButton" Content="Выйти" />
+        </StackPanel>
 
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBox x:Name="InputTextBox" Width="300" Watermark="Введите текст..." />
+            <TextBox x:Name="InputTextBox" Width="220" Watermark="Введите текст..." />
             <Button x:Name="AddButton" Click="AddButton_Click">Добавить</Button>
             <Button x:Name="ClearButton" Click="ClearButton_Click">Очистить</Button>
+            <Button x:Name="TakeTestButton">Пройти тест</Button>
         </StackPanel>
 
         <ListBox x:Name="ItemsListBox" Height="200" />

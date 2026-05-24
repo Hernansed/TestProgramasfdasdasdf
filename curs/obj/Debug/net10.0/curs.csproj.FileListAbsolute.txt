@@ -96,3 +96,4 @@ C:\Users\user\source\repos\curs\curs\bin\Debug\net10.0\runtimes\win-arm\native\e
 C:\Users\user\source\repos\curs\curs\bin\Debug\net10.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\user\source\repos\curs\curs\bin\Debug\net10.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\user\source\repos\curs\curs\bin\Debug\net10.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\user\source\repos\curs\curs\obj\Debug\net10.0\curs.sourcelink.json

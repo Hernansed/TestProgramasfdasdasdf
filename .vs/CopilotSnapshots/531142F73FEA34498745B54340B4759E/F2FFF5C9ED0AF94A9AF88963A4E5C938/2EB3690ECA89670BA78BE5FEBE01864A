@@ -1,0 +1,166 @@
+﻿using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
+using System.Text.Json;
+using curs.Models;
+using System;
+
+namespace curs
+{
+    public partial class TestTakingWindow : Window
+    {
+        private List<Question> _questions = new();
+        private List<string> _responses = new();
+        private int _currentIndex = 0;
+        private System.Collections.ObjectModel.ObservableCollection<string> _resultsDisplay = new();
+        private TextBlock? _questionTextBlock;
+        private TextBox? _answerTextBox;
+        private ListBox? _resultsListBox;
+        private Button? _nextButton;
+        private int _testId;
+        private Models.User? _user;
+
+        public TestTakingWindow(int testId, Models.User? user = null)
+        {
+            _testId = testId;
+            _user = user;
+            InitializeComponent();
+            var submit = this.FindControl<Button>("SubmitButton");
+            var cancel = this.FindControl<Button>("CancelButton");
+            _nextButton = this.FindControl<Button>("NextButton");
+            _questionTextBlock = this.FindControl<TextBlock>("QuestionTextBlock");
+            _answerTextBox = this.FindControl<TextBox>("AnswerTextBox");
+            _resultsListBox = this.FindControl<ListBox>("ResultsListBox");
+
+            if (submit != null) submit.Click += SubmitButton_Click;
+            if (cancel != null) cancel.Click += (_, __) => this.Close();
+            if (_nextButton != null) _nextButton.Click += NextButton_Click;
+            if (_answerTextBox != null) _answerTextBox.TextChanged += AnswerTextBox_TextChanged;
+            if (_resultsListBox != null) _resultsListBox.ItemsSource = _resultsDisplay;
+
+            LoadTest();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void LoadTest()
+        {
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Title, Content FROM Tests WHERE Id=$id";
+            cmd.Parameters.AddWithValue("$id", _testId);
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                var title = reader.GetString(0);
+                this.Title = title;
+                var content = reader.GetString(1);
+                try
+                {
+                    _questions = JsonSerializer.Deserialize<List<Question>>(content) ?? new List<Question>();
+                }
+                catch
+                {
+                    _questions = new List<Question>();
+                }
+            }
+
+            // initialize responses and show first question
+            _responses.Clear();
+            for (int i = 0; i < _questions.Count; i++) _responses.Add(string.Empty);
+            _resultsDisplay.Clear();
+            _currentIndex = 0;
+            ShowCurrentQuestion();
+        }
+
+        private void ShowCurrentQuestion()
+        {
+            if (_questions.Count == 0)
+            {
+                _questionTextBlock?.SetValue(TextBlock.TextProperty, "Нет вопросов");
+                _answerTextBox?.SetValue(TextBox.TextProperty, string.Empty);
+                if (_nextButton != null) _nextButton.IsEnabled = false;
+                return;
+            }
+
+            var q = _questions[_currentIndex];
+            if (_questionTextBlock != null) _questionTextBlock.Text = $"{_currentIndex + 1}. {q.Text}";
+            if (_answerTextBox != null)
+            {
+                _answerTextBox.Text = _responses[_currentIndex];
+                _nextButton!.IsEnabled = !string.IsNullOrWhiteSpace(_answerTextBox.Text);
+            }
+        }
+
+        private void AnswerTextBox_TextChanged(object? sender, RoutedEventArgs e)
+        {
+            if (_answerTextBox == null || _nextButton == null) return;
+            _nextButton.IsEnabled = !string.IsNullOrWhiteSpace(_answerTextBox.Text);
+        }
+
+        private void NextButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (_answerTextBox == null) return;
+            var answer = _answerTextBox.Text ?? string.Empty;
+            _responses[_currentIndex] = answer;
+
+            // check correctness: match any of the predefined answers (case-insensitive, trimmed)
+            var q = _questions[_currentIndex];
+            var isCorrect = false;
+            foreach (var a in q.Answers)
+            {
+                if (string.Equals(a?.Trim(), answer.Trim(), StringComparison.OrdinalIgnoreCase)) { isCorrect = true; break; }
+            }
+
+            var resultLine = $"{_currentIndex + 1}. {q.Text} -> Ваш ответ: '{answer}' — {(isCorrect ? "Правильно" : "Неправильно")}";
+            _resultsDisplay.Add(resultLine);
+
+            // move to next question
+            _currentIndex++;
+            if (_currentIndex >= _questions.Count)
+            {
+                // no more questions
+                _questionTextBlock.Text = "Все вопросы отвечены.";
+                _answerTextBox.Text = string.Empty;
+                _nextButton.IsEnabled = false;
+            }
+            else
+            {
+                ShowCurrentQuestion();
+            }
+        }
+
+        private void SubmitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            // save attempt: collect free-form responses
+            var answers = new List<object>();
+            for (int i = 0; i < _questions.Count; i++)
+            {
+                var resp = (i < _responses.Count) ? _responses[i] : string.Empty;
+                answers.Add(new { Question = _questions[i].Text, Response = resp });
+            }
+            var json = JsonSerializer.Serialize(answers);
+
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO TestAttempts (TestId, UserId, Answers, CreatedAt) VALUES ($t, $u, $a, $c);";
+            cmd.Parameters.AddWithValue("$t", _testId);
+            if (_user != null)
+                cmd.Parameters.AddWithValue("$u", _user.Id);
+            else
+                cmd.Parameters.AddWithValue("$u", DBNull.Value);
+            cmd.Parameters.AddWithValue("$a", json);
+            cmd.Parameters.AddWithValue("$c", DateTime.UtcNow.ToString("o"));
+            cmd.ExecuteNonQuery();
+
+            this.Close();
+        }
+    }
+}

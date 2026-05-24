@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("curs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f8c04bdc7004cee4a57b6f69a3107c64af67c1f")]
 [assembly: System.Reflection.AssemblyProductAttribute("curs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("curs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
