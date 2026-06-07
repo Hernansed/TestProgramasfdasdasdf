@@ -52,6 +52,10 @@ namespace curs
             if (logoutBtn != null)
                 logoutBtn.Click += LogoutButton_Click;
 
+            var settingsBtn = this.FindControl<Button>("SettingsButton");
+            if (settingsBtn != null)
+                settingsBtn.Click += SettingsButton_Click;
+
             // Questions/test UI
             var addQBtn = this.FindControl<Button>("AddQuestionButton");
             var saveTestBtn = this.FindControl<Button>("SaveTestButton");
@@ -73,6 +77,12 @@ namespace curs
             var login = new LoginWindow();
             login.Show();
             this.Close();
+        }
+
+        private void SettingsButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var settings = new SettingsWindow();
+            settings.ShowDialog(this);
         }
 
         private void LoadUsers()

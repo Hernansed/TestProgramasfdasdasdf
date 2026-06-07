@@ -17,35 +17,38 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = curs
-build_property.ProjectDir = C:\Users\user\source\repos\curs\curs\
+build_property.ProjectDir = /tmp/TestProgramasfdasdasdf/curs/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/user/source/repos/curs/curs/AdminTakeTestWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/AdminTakeTestWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/AdminWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/AdminWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/App.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/ForgotWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/ForgotWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/LoginWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/LoginWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/MainWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/RegisterWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/RegisterWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/TestProgram.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/SettingsWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/user/source/repos/curs/curs/TestTakingWindow.axaml]
+[/tmp/TestProgramasfdasdasdf/curs/TestProgram.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[/tmp/TestProgramasfdasdasdf/curs/TestTakingWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

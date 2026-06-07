@@ -37,9 +37,13 @@ namespace curs
             _itemsListBox = this.FindControl<ListBox>("ItemsListBox");
             _userLabel = this.FindControl<TextBlock>("UserLabel");
             var logoutBtn = this.FindControl<Button>("LogoutButton");
+            var settingsBtn = this.FindControl<Button>("SettingsButton");
 
             if (logoutBtn != null)
                 logoutBtn.Click += LogoutButton_Click;
+
+            if (settingsBtn != null)
+                settingsBtn.Click += SettingsButton_Click;
 
             if (_itemsListBox != null)
                 _itemsListBox.ItemsSource = _items;
@@ -71,6 +75,12 @@ namespace curs
             var login = new LoginWindow();
             login.Show();
             this.Close();
+        }
+
+        private void SettingsButton_Click(object? sender, RoutedEventArgs e)
+        {
+            var settings = new SettingsWindow();
+            settings.ShowDialog(this);
         }
 
         public void SetCurrentUser(User user)

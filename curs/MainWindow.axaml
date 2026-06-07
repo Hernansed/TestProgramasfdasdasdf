@@ -5,12 +5,19 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="curs.MainWindow"
         Title="curs">
-    <StackPanel Margin="10" Spacing="8">
-        <TextBlock Text="Пример графического интерфейса" FontSize="18" />
-        <StackPanel Orientation="Horizontal" Spacing="8">
-            <TextBlock x:Name="UserLabel" Text="" FontSize="12" />
-            <Button x:Name="LogoutButton" Content="Выйти" />
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel Margin="10" Spacing="8" Grid.Row="0">
+            <Grid ColumnDefinitions="*,Auto,Auto">
+                <TextBlock Text="Пример графического интерфейса" FontSize="18" Grid.Column="0" VerticalAlignment="Center" />
+                <Button x:Name="SettingsButton" Content="⚙ Настройки" Grid.Column="1" Margin="10,0" />
+                <StackPanel Orientation="Horizontal" Spacing="8" Grid.Column="2">
+                    <TextBlock x:Name="UserLabel" Text="" FontSize="12" VerticalAlignment="Center" />
+                    <Button x:Name="LogoutButton" Content="Выйти" />
+                </StackPanel>
+            </Grid>
         </StackPanel>
+
+        <StackPanel Margin="10" Spacing="8" Grid.Row="1">
 
         <StackPanel Orientation="Horizontal" Spacing="8">
             <TextBox x:Name="InputTextBox" Width="220" Watermark="Введите текст..." />
@@ -20,5 +27,6 @@
         </StackPanel>
 
         <ListBox x:Name="ItemsListBox" Height="200" />
-    </StackPanel>
+        </StackPanel>
+    </Grid>
 </Window>
