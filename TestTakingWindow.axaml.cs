@@ -1,0 +1,213 @@
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
+using System.Text.Json;
+using curs.Models;
+using System;
+
+namespace curs
+{
+    public partial class TestTakingWindow : Window
+    {
+        private List<Question> _questions = new();
+        private List<string> _responses = new();
+        private int _currentIndex = 0;
+        private System.Collections.ObjectModel.ObservableCollection<curs.Models.TestResult> _results = new();
+        private TextBlock? _questionTextBlock;
+        private TextBox? _answerTextBox;
+        private TextBox? _rightTextBox;
+        private StackPanel? _resultsHost;
+        private ScrollViewer? _resultsScroll;
+        private Button? _nextButton;
+        private int _testId;
+        private Models.User? _user;
+
+        public TestTakingWindow(int testId, Models.User? user = null)
+        {
+            _testId = testId;
+            _user = user;
+            InitializeComponent();
+            var submit = this.FindControl<Button>("SubmitButton");
+            var cancel = this.FindControl<Button>("CancelButton");
+            _nextButton = this.FindControl<Button>("NextButton");
+            _questionTextBlock = this.FindControl<TextBlock>("QuestionTextBlock");
+            _answerTextBox = this.FindControl<TextBox>("AnswerTextBox");
+            _resultsHost = this.FindControl<StackPanel>("ResultsHost");
+            _rightTextBox = this.FindControl<TextBox>("RightTextBox");
+            _resultsScroll = this.FindControl<ScrollViewer>("ResultsScroll");
+
+            if (submit != null) submit.Click += SubmitButton_Click;
+            if (cancel != null) cancel.Click += (_, __) => this.Close();
+            if (_nextButton != null) _nextButton.Click += NextButton_Click;
+            if (_answerTextBox != null) _answerTextBox.TextChanged += AnswerTextBox_TextChanged;
+
+            LoadTest();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+        }
+
+        private void LoadTest()
+        {
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT Title, Content FROM Tests WHERE Id=$id";
+            cmd.Parameters.AddWithValue("$id", _testId);
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                var title = reader.GetString(0);
+                this.Title = title;
+                var content = reader.GetString(1);
+                try
+                {
+                    _questions = JsonSerializer.Deserialize<List<Question>>(content) ?? new List<Question>();
+                }
+                catch
+                {
+                    _questions = new List<Question>();
+                }
+            }
+
+            // initialize responses and show first question
+            _responses.Clear();
+            for (int i = 0; i < _questions.Count; i++) _responses.Add(string.Empty);
+            _results.Clear();
+            _currentIndex = 0;
+            ShowCurrentQuestion();
+        }
+
+        private void ShowCurrentQuestion()
+        {
+            if (_questions.Count == 0)
+            {
+                _questionTextBlock?.SetValue(TextBlock.TextProperty, "Нет вопросов");
+                _answerTextBox?.SetValue(TextBox.TextProperty, string.Empty);
+                if (_nextButton != null) _nextButton.IsEnabled = false;
+                return;
+            }
+
+            var q = _questions[_currentIndex];
+            if (_questionTextBlock != null) _questionTextBlock.Text = $"{_currentIndex + 1}. {q.Text}";
+            if (_answerTextBox != null)
+            {
+                _answerTextBox.Text = _responses[_currentIndex];
+                _nextButton!.IsEnabled = !string.IsNullOrWhiteSpace(_answerTextBox.Text);
+            }
+        }
+
+        private void AnswerTextBox_TextChanged(object? sender, RoutedEventArgs e)
+        {
+            if (_answerTextBox == null || _nextButton == null) return;
+            _nextButton.IsEnabled = !string.IsNullOrWhiteSpace(_answerTextBox.Text);
+        }
+
+        private void NextButton_Click(object? sender, RoutedEventArgs e)
+        {
+            if (_answerTextBox == null) return;
+            var answer = _answerTextBox.Text ?? string.Empty;
+            _responses[_currentIndex] = answer;
+
+            // if this was the last question, finish the test immediately
+            if (_currentIndex >= 0 && _currentIndex == _questions.Count - 1)
+            {
+                // show a short completion message then show results
+                if (_questionTextBlock != null) _questionTextBlock.Text = "Тест завершен";
+                // trigger submit logic to save and display results
+                SubmitButton_Click(null, null);
+                return;
+            }
+
+            // otherwise move to next question
+            _currentIndex++;
+            ShowCurrentQuestion();
+        }
+
+        private void SubmitButton_Click(object? sender, RoutedEventArgs e)
+        {
+            // ensure current answer is recorded
+            if (_answerTextBox != null && _currentIndex < _questions.Count)
+                _responses[_currentIndex] = _answerTextBox.Text ?? string.Empty;
+
+            // prepare results display (clear previous)
+            _results.Clear();
+            var answers = new List<object>();
+            for (int i = 0; i < _questions.Count; i++)
+            {
+                var resp = (i < _responses.Count) ? _responses[i] : string.Empty;
+                answers.Add(new { Question = _questions[i].Text, Response = resp });
+
+                var q = _questions[i];
+                var isCorrect = false;
+                foreach (var a in q.Answers)
+                {
+                    if (string.Equals(a?.Trim(), resp.Trim(), StringComparison.OrdinalIgnoreCase)) { isCorrect = true; break; }
+                }
+                var result = new curs.Models.TestResult { Number = i + 1, Question = q.Text, Answer = resp, Status = isCorrect ? "Правильно" : "Неправильно", Background = isCorrect ? "LightGreen" : "LightCoral" };
+                _results.Add(result);
+            }
+
+            var json = JsonSerializer.Serialize(answers);
+
+            using var conn = new SqliteConnection($"Data Source={Data.Database.DbPath}");
+            conn.Open();
+            using var cmd = conn.CreateCommand();
+            cmd.CommandText = "INSERT INTO TestAttempts (TestId, UserId, Answers, CreatedAt) VALUES ($t, $u, $a, $c);";
+            cmd.Parameters.AddWithValue("$t", _testId);
+            if (_user != null)
+                cmd.Parameters.AddWithValue("$u", _user.Id);
+            else
+                cmd.Parameters.AddWithValue("$u", DBNull.Value);
+            cmd.Parameters.AddWithValue("$a", json);
+            cmd.Parameters.AddWithValue("$c", DateTime.UtcNow.ToString("o"));
+            cmd.ExecuteNonQuery();
+
+            // show results and disable inputs
+            if (_resultsHost != null && _resultsScroll != null)
+            {
+                _resultsHost.Children.Clear();
+                foreach (var r in _results)
+                {
+                    // Render as: "{Number}. {Question} — Ответ: {Answer}" on one line (wrapped if long).
+                    var border = new Border
+                    {
+                        Background = Avalonia.Media.Brush.Parse(r.Background),
+                        Padding = new Avalonia.Thickness(6),
+                        CornerRadius = new Avalonia.CornerRadius(4)
+                    };
+
+                    var line = new TextBlock
+                    {
+                        Text = $"{r.Number}. {r.Question} — Ответ: {r.Answer}, Правильный ответ: {r.RAnswer}"
+                    };
+
+                    FontSize = 13;
+                    TextWrapping = Avalonia.Media.TextWrapping.Wrap;
+                        MaxWidth = 900;
+                        Opacity = 0.95;
+                    };
+
+                    border.Child = line;
+                    _resultsHost.Children.Add(border);
+                }
+                _resultsScroll.IsVisible = true;
+                if (_resultsHost.Children.Count > 0)
+                {
+                    var last = _resultsHost.Children[_resultsHost.Children.Count - 1];
+                    last.BringIntoView();
+                }
+            }
+            if (_answerTextBox != null) _answerTextBox.IsEnabled = false;
+            if (_nextButton != null) _nextButton.IsEnabled = false;
+            ы 
+            var submitBtn = this.FindControl<Button>("SubmitButton");
+            if (submitBtn != null) submitBtn.IsEnabled = false;
+            if (_questionTextBlock != null) _questionTextBlock.Text = "Тест завершен";
+        }
+    }
+}

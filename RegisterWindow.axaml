@@ -1,0 +1,17 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.RegisterWindow"
+        Title="Регистрация">
+    <StackPanel Margin="20" Spacing="8" Width="360">
+        <TextBlock Text="Регистрация" FontSize="16" />
+        <TextBox x:Name="UsernameBox" Watermark="Имя пользователя" />
+        <TextBox x:Name="EmailBox" Watermark="Email" />
+        <TextBox x:Name="NameBox" Watermark="Имя" />
+        <TextBox x:Name="PasswordBox" Watermark="Пароль" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="RegisterButton">Зарегистрироваться</Button>
+            <Button x:Name="CancelButton">Отмена</Button>
+        </StackPanel>
+        <TextBlock x:Name="StatusText" Foreground="Red" />
+    </StackPanel>
+</Window>

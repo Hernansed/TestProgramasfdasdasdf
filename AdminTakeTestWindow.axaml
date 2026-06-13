@@ -1,0 +1,15 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.AdminTakeTestWindow"
+        Title="Пройти тест за пользователя">
+    <StackPanel Margin="20" Spacing="8" Width="420">
+        <TextBlock Text="Выберите пользователя и тест" FontSize="16" />
+        <ComboBox x:Name="UserCombo" Width="380" />
+        <ComboBox x:Name="TestCombo" Width="380" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+            <Button x:Name="StartButton">Начать</Button>
+            <Button x:Name="CancelButton">Отмена</Button>
+        </StackPanel>
+        <TextBlock x:Name="StatusText" Foreground="Red" />
+    </StackPanel>
+</Window>

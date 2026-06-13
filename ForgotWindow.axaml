@@ -1,0 +1,11 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="curs.ForgotWindow"
+        Title="Восстановление пароля">
+    <StackPanel Margin="20" Spacing="8" Width="360">
+        <TextBlock Text="Введите вашу почту" />
+        <TextBox x:Name="EmailBox" Watermark="Email" />
+        <Button x:Name="SendButton">Отправить новый пароль</Button>
+        <TextBlock x:Name="StatusText" Foreground="Red" />
+    </StackPanel>
+</Window>
